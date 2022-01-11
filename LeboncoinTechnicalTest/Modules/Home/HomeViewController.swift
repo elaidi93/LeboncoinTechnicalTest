@@ -18,8 +18,8 @@ class HomeViewController: BaseViewController {
         tableView.register(ProductTableViewCell.self,
                            forCellReuseIdentifier: "ProductCell")
         
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 44
+        
+        tableView.rowHeight = 100
         return tableView
     }()
     
@@ -133,8 +133,5 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         self.present(UINavigationController(rootViewController: detailsVC), animated: true)
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
-    }
 }
 

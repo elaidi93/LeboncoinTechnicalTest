@@ -11,17 +11,14 @@ class ProductTableViewCell: UITableViewCell {
     
     private var imageLoader: ImageLoader?
     
-    private var stackView: UIStackView {
+    private var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 20
         stackView.axis = .horizontal
-        stackView.distribution = .fill
         stackView.alignment = .firstBaseline
-        stackView.frame = self.contentView.frame
-        stackView.addArrangedSubview(image)
-        stackView.addArrangedSubview(labelsStackView)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
-    }
+    }()
     
     private var labelsStackView: UIStackView {
         let stackView = UIStackView()
@@ -31,6 +28,7 @@ class ProductTableViewCell: UITableViewCell {
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(categoryLabel)
         stackView.addArrangedSubview(priceLabel)
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }
     
@@ -62,15 +60,13 @@ class ProductTableViewCell: UITableViewCell {
     
     private let formatter = NumberFormatter()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        formatter.numberStyle = .currency
-    }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         imageLoader = ImageLoader()
         self.contentView.addSubview(stackView)
+        formatter.numberStyle = .currency
+        stackView.addArrangedSubview(image)
+        stackView.addArrangedSubview(labelsStackView)
     }
     
     required init?(coder: NSCoder) {
@@ -79,7 +75,15 @@ class ProductTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        setConstraint()
+    }
+    
+    private func setConstraint() {
         NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             image.heightAnchor.constraint(equalToConstant: 60),
             image.widthAnchor.constraint(equalToConstant: 60)
         ])
@@ -104,9 +108,8 @@ class ProductTableViewCell: UITableViewCell {
         }
         
         if let category = categories?.first(where: { $0.id == product.categoryId })?.name {
-               categoryLabel.text = "Catégorie\(category)"
-           }
-        
+            categoryLabel.text = "Catégorie: \(category)"
+        }
     }
     
 }

@@ -211,8 +211,8 @@
 		396F53E3278B81C8005FDB88 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				39C667C4278E02C30056F69D /* Cell */,
 				393A6580278A32D40042DBC8 /* HomeViewController.swift */,
-				396F53EA278B8407005FDB88 /* ProductTableViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -277,6 +277,14 @@
 				39C667BF278DCA950056F69D /* CategoryViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		39C667C4278E02C30056F69D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				396F53EA278B8407005FDB88 /* ProductTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
