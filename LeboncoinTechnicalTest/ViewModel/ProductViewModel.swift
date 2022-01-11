@@ -22,7 +22,7 @@ class ProductViewModel {
     init(with product: ProductResponse) {
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        formatter.dateFormat = Constants.dateFormat
         
         guard let id = product.id,
               let categoryId = product.category_id,
