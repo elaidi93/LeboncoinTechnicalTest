@@ -17,13 +17,36 @@ class HomeViewController: BaseViewController {
         // Register cell
         tableView.register(ProductTableViewCell.self,
                            forCellReuseIdentifier: "ProductCell")
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
         return tableView
     }()
     
-    private var observer: AnyCancellable?
+    var selectedCategory = -1 {
+        didSet {
+            if selectedCategory == -1 {
+                products?.removeAll()
+                products = DBProductManager.shared.fetch()
+            } else {
+                products?.removeAll()
+                products = DBProductManager.shared.fetch()?.filter{ $0.categoryId == selectedCategory }
+            }
+        }
+    }
+    
+    private var observers = Set<AnyCancellable>()
     private var products: [ProductViewModel]? = [] {
         didSet {
+            products = products?.sorted(by: { $0.creationDate ?? Date() > $1.creationDate ?? Date() })
             tableView.reloadData()
+        }
+    }
+    
+    var demoMenu: UIMenu?
+    private var categories: [CategoryViewModel]? {
+        didSet {
+            didTapShooseCategory()
         }
     }
 
@@ -36,11 +59,21 @@ class HomeViewController: BaseViewController {
         tableView.dataSource = self
         tableView.delegate = self
         
-        // fetch products
+        // fetch data from Local
         products = ProductWorker.shared.fetchProducts()
-        observer = ProductWorker.shared.passthrough.sink { products in
+        categories = CategoryWorker.shared.fetchCategories()
+        
+        ProductWorker.shared.passthrough.sink { products in
             self.products = products
-        }
+        }.store(in: &observers)
+        
+        CategoryWorker.shared.passthrough.sink { categories in
+            self.categories = categories
+        }.store(in: &observers)
+        
+        // navigation item
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Catégories", menu: demoMenu)
+
     }
 
     override func viewDidLayoutSubviews() {
@@ -50,7 +83,31 @@ class HomeViewController: BaseViewController {
         tableView.frame = self.view.safeAreaLayoutGuide.layoutFrame
         
     }
-
+    
+    @objc
+    private func didTapShooseCategory () {
+        
+        guard let categories = categories
+        else { return }
+        
+        var menuItems: [UIAction] {
+            var actions = [UIAction]()
+            actions.append(UIAction(title: "Tous", handler: { _ in
+                self.selectedCategory = -1
+            }))
+            for category in categories {
+                actions.append(UIAction(title: category.name ?? "", handler: { _ in
+                    self.selectedCategory = category.id ?? -1
+                }))
+            }
+            return actions
+        }
+        
+        demoMenu = {
+            return UIMenu(title: "Catégories", children: menuItems)
+        }()
+        navigationItem.rightBarButtonItem?.menu = demoMenu
+    }
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
@@ -65,7 +122,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         else {
             fatalError()
         }
-        cell.configure(product: products[indexPath.row])
+        cell.configure(product: products[indexPath.row], categories: categories)
         return cell
     }
     
@@ -74,6 +131,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let detailsVC = ProductDetailsViewController()
         detailsVC.product = products?[indexPath.row]
         self.present(UINavigationController(rootViewController: detailsVC), animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20
     }
 }
 

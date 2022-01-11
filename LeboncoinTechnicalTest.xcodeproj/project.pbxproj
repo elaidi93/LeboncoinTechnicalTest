@@ -139,7 +139,6 @@
 				396F53D5278A7105005FDB88 /* Network */,
 				396F53E7278B8229005FDB88 /* Ressources */,
 				396F53CF278A6B24005FDB88 /* Helpers */,
-				396F53CC278A6966005FDB88 /* Extensions */,
 			);
 			path = LeboncoinTechnicalTest;
 			sourceTree = "<group>";
@@ -159,13 +158,6 @@
 				393A65A2278A32D50042DBC8 /* LeboncoinTechnicalTestUITestsLaunchTests.swift */,
 			);
 			path = LeboncoinTechnicalTestUITests;
-			sourceTree = "<group>";
-		};
-		396F53CC278A6966005FDB88 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		396F53CF278A6B24005FDB88 /* Helpers */ = {
