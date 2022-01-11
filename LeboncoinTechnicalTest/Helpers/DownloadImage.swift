@@ -8,8 +8,14 @@
 import UIKit
 import Combine
 
-class LoadImage {
-    func loadData(url: URL, completion: @escaping (Data?, Error?) -> Void) {
+class ImageLoader {
+    
+    static let shared = ImageLoader()
+    
+    func load(from url: String, completion: @escaping (Data?, Error?) -> Void) {
+        
+        guard let url = URL(string: url)
+        else { return }
         
         // Compute a path to the URL in the cache
         let fileCachePath = FileManager.default.temporaryDirectory
@@ -18,15 +24,13 @@ class LoadImage {
                 isDirectory: false
             )
         
-        // If the image exists in the cache,
         // load the image from the cache and exit
         if let data = try? Data(contentsOf: URL(fileURLWithPath: fileCachePath.path)) {
             completion(data, nil)
             return
         }
         
-        // If the image does not exist in the cache,
-        // download the image to the cache
+        // download the image If does not exist in the cache
         download(url: url, toFile: fileCachePath) { error in
             let data = try? Data(contentsOf: URL(fileURLWithPath: fileCachePath.path))
             completion(data, error)
