@@ -10,7 +10,7 @@ import Combine
 
 class CategoryWorker {
     
-    static let shared = ProductWorker()
+    static let shared = CategoryWorker()
     private var observer: AnyCancellable?
     let passthrough = PassthroughSubject<[CategoryViewModel]?, Never>()
     
