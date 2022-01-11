@@ -12,24 +12,22 @@ class CategoryWorker {
     
     static let shared = ProductWorker()
     private var observer: AnyCancellable?
-    let send = PassthroughSubject<[CategoryResponse], Never>()
+    let passthrough = PassthroughSubject<[CategoryViewModel]?, Never>()
     
-    func fetchProducts() -> [CategoryResponse]? {
+    func fetchCategories() -> [CategoryViewModel]? {
         
-        var categories: [CategoryResponse]?
-        
-        guard let productUrl = URL(string: Constants.categories_url) else {
+        guard let categoriesUrl = URL(string: Constants.categories_url) else {
             return []
         }
-        
-        observer = RequestManager.shared.get([CategoryResponse].self, from: productUrl)
+        var categories = DBCategoryManager.shared.fetch()
+        observer = RequestManager.shared.get([CategoryResponse].self, from: categoriesUrl)
             .sink { _ in }
     receiveValue: { result in
-        categories = result.value
-        self.send.send(result.value)
+        DBCategoryManager.shared.insert(categories: result.value)
+        categories = result.value.map({ CategoryViewModel(with: $0) })
+        self.passthrough.send(categories)
     }
         
         return categories
     }
-    
 }
