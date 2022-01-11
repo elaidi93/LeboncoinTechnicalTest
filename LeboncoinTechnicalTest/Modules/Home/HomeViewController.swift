@@ -35,6 +35,18 @@ class HomeViewController: BaseViewController {
         }
     }
     
+    var productWorker: ProductWorker? {
+        didSet {
+            productWorker?.fetchProducts()
+        }
+    }
+    
+    var categoryWorker: CategoryWorker? {
+        didSet {
+            categoryWorker?.fetchCategories()
+        }
+    }
+    
     private var observers = Set<AnyCancellable>()
     private var products: [ProductViewModel]? = [] {
         didSet {
@@ -60,14 +72,14 @@ class HomeViewController: BaseViewController {
         tableView.delegate = self
         
         // fetch data from Local
-        products = ProductWorker.shared.fetchProducts()
-        categories = CategoryWorker.shared.fetchCategories()
+        products = DBProductManager.shared.fetch()
+        categories = DBCategoryManager.shared.fetch()
         
-        ProductWorker.shared.passthrough.sink { products in
+        productWorker?.passthrough.sink { products in
             self.products = products
         }.store(in: &observers)
         
-        CategoryWorker.shared.passthrough.sink { categories in
+        categoryWorker?.passthrough.sink { categories in
             self.categories = categories
         }.store(in: &observers)
         
@@ -108,6 +120,12 @@ class HomeViewController: BaseViewController {
         }()
         navigationItem.rightBarButtonItem?.menu = demoMenu
     }
+    
+//    func inject(productWorker: ProductWorker, categoryWorker: CategoryWorker) {
+//        self.productWorker = productWorker
+//        self.categoryWorker = categoryWorker
+//    }
+    
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {

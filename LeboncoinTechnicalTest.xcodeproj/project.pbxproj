@@ -131,8 +131,8 @@
 		393A657B278A32D40042DBC8 /* LeboncoinTechnicalTest */ = {
 			isa = PBXGroup;
 			children = (
-				39C66778278CB46F0056F69D /* ViewModel */,
 				396F53E2278B81C0005FDB88 /* Modules */,
+				39C66778278CB46F0056F69D /* ViewModel */,
 				396F53E8278B8261005FDB88 /* Data */,
 				396F53DB278B4496005FDB88 /* Worker */,
 				396F53D8278B16B4005FDB88 /* Response */,
