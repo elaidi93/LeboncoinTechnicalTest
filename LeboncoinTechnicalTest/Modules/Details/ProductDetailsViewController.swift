@@ -9,7 +9,7 @@ import UIKit
 
 class ProductDetailsViewController: BaseViewController {
     
-    var product: ProductResponse?
+    var product: ProductViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()

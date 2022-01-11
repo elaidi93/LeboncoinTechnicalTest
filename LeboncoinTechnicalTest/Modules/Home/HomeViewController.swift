@@ -11,9 +11,17 @@ import Combine
 class HomeViewController: BaseViewController {
     
     // MARK: - Variables:
-    private let tableView = UITableView()
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        
+        // Register cell
+        tableView.register(ProductTableViewCell.self,
+                           forCellReuseIdentifier: "ProductCell")
+        return tableView
+    }()
+    
     private var observer: AnyCancellable?
-    private var products: [ProductResponse]? = [] {
+    private var products: [ProductViewModel]? = [] {
         didSet {
             tableView.reloadData()
         }
@@ -26,11 +34,11 @@ class HomeViewController: BaseViewController {
         
         // TableView Delegates
         tableView.dataSource = self
+        tableView.delegate = self
         
         // fetch products
-        
         products = ProductWorker.shared.fetchProducts()
-        observer = ProductWorker.shared.send.sink { products in
+        observer = ProductWorker.shared.passthrough.sink { products in
             self.products = products
         }
     }
@@ -52,8 +60,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Cell: \(products?[indexPath.row].title ?? "")"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as? ProductTableViewCell,
+              let products = products
+        else {
+            fatalError()
+        }
+        cell.configure(product: products[indexPath.row])
         return cell
     }
     

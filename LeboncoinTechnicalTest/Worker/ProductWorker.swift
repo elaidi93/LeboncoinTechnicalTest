@@ -12,21 +12,19 @@ class ProductWorker {
     
     static let shared = ProductWorker()
     private var observer: AnyCancellable?
-    let send = PassthroughSubject<[ProductResponse], Never>()
+    let passthrough = PassthroughSubject<[ProductViewModel], Never>()
     
-    func fetchProducts() -> [ProductResponse]? {
-        
-        var products: [ProductResponse]?
+    func fetchProducts() -> [ProductViewModel]? {
         
         guard let productUrl = URL(string: Constants.products_url) else {
             return []
         }
-        
+        var products = [ProductViewModel]()
         observer = RequestManager.shared.get([ProductResponse].self, from: productUrl)
             .sink { _ in }
     receiveValue: { result in
-        products = result.value
-        self.send.send(result.value)
+        products = result.value.map({ ProductViewModel(with: $0) })
+        self.passthrough.send(products)
     }
         
         return products
