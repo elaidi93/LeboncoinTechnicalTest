@@ -38,7 +38,7 @@ class HomeViewController: BaseViewController {
     private var observers = Set<AnyCancellable>()
     private var products: [ProductViewModel]? = [] {
         didSet {
-            products = products?.sorted(by: { $0.creationDate ?? Date() > $1.creationDate ?? Date() })
+            products = products?.sorted(by: { $0.creationDate ?? Date() > $1.creationDate ?? Date() }).sorted(by: { $0.isUrgent ?? false && $1.isUrgent ?? false })
             tableView.reloadData()
         }
     }
