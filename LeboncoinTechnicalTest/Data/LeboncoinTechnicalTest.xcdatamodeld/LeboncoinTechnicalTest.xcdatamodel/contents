@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DB_Category" representedClassName="DB_Category" syncable="YES">
+        <attribute name="a_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="a_name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="DB_Product" representedClassName="DB_Product" syncable="YES">
+        <attribute name="a_categoryId" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="a_creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="a_description" optional="YES" attributeType="String"/>
+        <attribute name="a_id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="a_imagesUrl" optional="YES" attributeType="Binary"/>
+        <attribute name="a_isUrgent" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="a_price" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="a_title" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="DB_Category" positionX="-54" positionY="-9" width="128" height="59"/>
+        <element name="DB_Product" positionX="-63" positionY="-18" width="128" height="149"/>
+    </elements>
+</model>
