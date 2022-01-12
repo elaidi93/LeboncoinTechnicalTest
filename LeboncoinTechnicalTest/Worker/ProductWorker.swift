@@ -10,7 +10,6 @@ import Combine
 
 class ProductWorker {
     
-//    static let shared = ProductWorker()
     private var observer: AnyCancellable?
     let passthrough = PassthroughSubject<[ProductViewModel]?, Never>()
     

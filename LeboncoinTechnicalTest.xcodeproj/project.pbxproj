@@ -32,6 +32,7 @@
 		39C667BC278DBFDF0056F69D /* DBProductManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C667BB278DBFDF0056F69D /* DBProductManager.swift */; };
 		39C667BE278DCA320056F69D /* DBCategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C667BD278DCA320056F69D /* DBCategoryManager.swift */; };
 		39C667C0278DCA950056F69D /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C667BF278DCA950056F69D /* CategoryViewModel.swift */; };
+		39C667C7278ED43D0056F69D /* GetProductsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C667C6278ED43D0056F69D /* GetProductsTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		39C667BB278DBFDF0056F69D /* DBProductManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBProductManager.swift; sourceTree = "<group>"; };
 		39C667BD278DCA320056F69D /* DBCategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBCategoryManager.swift; sourceTree = "<group>"; };
 		39C667BF278DCA950056F69D /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		39C667C6278ED43D0056F69D /* GetProductsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProductsTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 		393A6595278A32D50042DBC8 /* LeboncoinTechnicalTestTests */ = {
 			isa = PBXGroup;
 			children = (
+				39C667C5278ED4070056F69D /* Network */,
 				393A6596278A32D50042DBC8 /* LeboncoinTechnicalTestTests.swift */,
 			);
 			path = LeboncoinTechnicalTestTests;
@@ -285,6 +288,14 @@
 				396F53EA278B8407005FDB88 /* ProductTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		39C667C5278ED4070056F69D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				39C667C6278ED43D0056F69D /* GetProductsTest.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,6 +455,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39C667C7278ED43D0056F69D /* GetProductsTest.swift in Sources */,
 				393A6597278A32D50042DBC8 /* LeboncoinTechnicalTestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

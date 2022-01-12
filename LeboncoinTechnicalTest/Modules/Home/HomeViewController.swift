@@ -121,11 +121,6 @@ class HomeViewController: BaseViewController {
         navigationItem.rightBarButtonItem?.menu = demoMenu
     }
     
-//    func inject(productWorker: ProductWorker, categoryWorker: CategoryWorker) {
-//        self.productWorker = productWorker
-//        self.categoryWorker = categoryWorker
-//    }
-    
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {

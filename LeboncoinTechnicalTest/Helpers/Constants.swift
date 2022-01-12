@@ -10,8 +10,9 @@ import Foundation
 class Constants {
     
     // URLs
-    static let products_url = "https://raw.githubusercontent.com/leboncoin/paperclip/master/listing.json"
-    static let categories_url = "https://raw.githubusercontent.com/leboncoin/paperclip/master/categories.json"
+    static let rout = "https://raw.githubusercontent.com/leboncoin/paperclip/master/"
+    static let products_url =  "\(Constants.rout)listing.json"
+    static let categories_url = "\(Constants.rout)categories.json"
     
     // Date format
     static let dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
